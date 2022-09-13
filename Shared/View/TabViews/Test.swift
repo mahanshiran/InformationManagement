@@ -26,7 +26,7 @@ struct Test: View {
                 
 
                 NavigationLink("Test") {
-                    TestItem(user: user)
+                    TestItem<StudentModel>(user: student)
                 }
                 
                 

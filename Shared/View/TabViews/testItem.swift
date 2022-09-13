@@ -25,6 +25,15 @@ struct TestItem<T>: View {
         .textFieldStyle(.roundedBorder)
         .padding()
         .onAppear{
+            if T.self is StudentModel{
+                print("StudentModel")
+            }else if T.self is UserModel{
+                print("User")
+            }
+            else {
+                print("Other")
+            }
+
 //            if T.self is StudentModel{
 //                items as! StudentModel = StudentDB().getAll()
 //            }
