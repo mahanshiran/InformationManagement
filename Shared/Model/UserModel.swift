@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct UserModel: Identifiable, Codable, Equatable  {
+protocol ss {
+    func D()
+}
+
+struct UserModel: Identifiable, Codable, Equatable {
+
+    
     public var id : String = ""
     public var role : String = "" //'super_admin', 'community_admin', 'ordinary_user'
     

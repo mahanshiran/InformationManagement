@@ -8,31 +8,8 @@
 import SwiftUI
 
 struct Home: View {
-    let userDB = UserDB()
-    @State var users : [UserModel] = []
     var body: some View {
-        
-        VStack{
-            
-            Button {
-                
-                userDB.addCard(card: UserModel(id: UUID().uuidString,role: "role3"))
-                
-                users = userDB.getAll()
-                
-            } label: {
-                Text("Add")
-            }
-            
-
-            ForEach(users, id:\.id){
-                user in
-                Text(user.role)
-            }
-        }
-        .onAppear{
-            users = userDB.getAll()
-        }
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 

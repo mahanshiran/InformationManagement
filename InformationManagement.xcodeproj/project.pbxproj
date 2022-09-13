@@ -14,13 +14,16 @@
 		40611D8D28D00F7B006849F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40611D6328D00F7B006849F1 /* Assets.xcassets */; };
 		40611D8E28D00F7B006849F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40611D6328D00F7B006849F1 /* Assets.xcassets */; };
 		40611DA428D0103E006849F1 /* TabUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DA328D0103E006849F1 /* TabUIView.swift */; };
-		40611DA728D0114E006849F1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DA628D0114E006849F1 /* Home.swift */; };
+		40611DA728D0114E006849F1 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DA628D0114E006849F1 /* Test.swift */; };
 		40611DA928D0118C006849F1 /* Societies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DA828D0118C006849F1 /* Societies.swift */; };
 		40611DAB28D01192006849F1 /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DAA28D01192006849F1 /* Activities.swift */; };
 		40611DAD28D01198006849F1 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DAC28D01198006849F1 /* Profile.swift */; };
 		40611DBB28D01715006849F1 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DBA28D01715006849F1 /* UserModel.swift */; };
 		40611DBE28D017E3006849F1 /* UserDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DBD28D017E3006849F1 /* UserDB.swift */; };
 		40611DC028D01E12006849F1 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DBF28D01E12006849F1 /* StudentModel.swift */; };
+		40611DC228D0235E006849F1 /* StudentDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DC128D0235E006849F1 /* StudentDB.swift */; };
+		40611DC428D02763006849F1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DC328D02763006849F1 /* Home.swift */; };
+		40611DC628D04E38006849F1 /* testItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40611DC528D04E38006849F1 /* testItem.swift */; };
 		F373892764BD6D337D1917AB /* Pods_InformationManagement__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 763FDF177A1A8655BEA7C0C3 /* Pods_InformationManagement__iOS_.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,17 +50,19 @@
 		40611D6328D00F7B006849F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40611D6828D00F7B006849F1 /* InformationManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InformationManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40611D6E28D00F7B006849F1 /* InformationManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InformationManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		40611D7028D00F7B006849F1 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		40611D7528D00F7B006849F1 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40611D8128D00F7B006849F1 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40611DA328D0103E006849F1 /* TabUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabUIView.swift; sourceTree = "<group>"; };
-		40611DA628D0114E006849F1 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		40611DA628D0114E006849F1 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		40611DA828D0118C006849F1 /* Societies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Societies.swift; sourceTree = "<group>"; };
 		40611DAA28D01192006849F1 /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
 		40611DAC28D01198006849F1 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		40611DBA28D01715006849F1 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		40611DBD28D017E3006849F1 /* UserDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDB.swift; sourceTree = "<group>"; };
 		40611DBF28D01E12006849F1 /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
+		40611DC128D0235E006849F1 /* StudentDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDB.swift; sourceTree = "<group>"; };
+		40611DC328D02763006849F1 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		40611DC528D04E38006849F1 /* testItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testItem.swift; sourceTree = "<group>"; };
 		763FDF177A1A8655BEA7C0C3 /* Pods_InformationManagement__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InformationManagement__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		915B4AE7ED7FECC604E9423D /* Pods-InformationManagement (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InformationManagement (iOS).release.xcconfig"; path = "Target Support Files/Pods-InformationManagement (iOS)/Pods-InformationManagement (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		941333C67789F8D8800EEF68 /* Pods-InformationManagement (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InformationManagement (iOS).debug.xcconfig"; path = "Target Support Files/Pods-InformationManagement (iOS)/Pods-InformationManagement (iOS).debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				40611D6028D00F7B006849F1 /* Shared */,
-				40611D6F28D00F7B006849F1 /* macOS */,
 				40611D6928D00F7B006849F1 /* Products */,
 				143CE24E89C0A652303CAE62 /* Pods */,
 				EDA8364A6A764992AAAAF2EC /* Frameworks */,
@@ -141,14 +145,6 @@
 				40611D8128D00F7B006849F1 /* Tests macOS.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		40611D6F28D00F7B006849F1 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				40611D7028D00F7B006849F1 /* macOS.entitlements */,
-			);
-			path = macOS;
 			sourceTree = "<group>";
 		};
 		40611D9D28D00FA2006849F1 /* View */ = {
@@ -201,7 +197,9 @@
 		40611DA528D0113B006849F1 /* TabViews */ = {
 			isa = PBXGroup;
 			children = (
-				40611DA628D0114E006849F1 /* Home.swift */,
+				40611DA628D0114E006849F1 /* Test.swift */,
+				40611DC528D04E38006849F1 /* testItem.swift */,
+				40611DC328D02763006849F1 /* Home.swift */,
 				40611DA828D0118C006849F1 /* Societies.swift */,
 				40611DAA28D01192006849F1 /* Activities.swift */,
 				40611DAC28D01198006849F1 /* Profile.swift */,
@@ -213,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				40611DBD28D017E3006849F1 /* UserDB.swift */,
+				40611DC128D0235E006849F1 /* StudentDB.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -431,11 +430,14 @@
 				40611D8928D00F7B006849F1 /* InformationManagementApp.swift in Sources */,
 				40611DBB28D01715006849F1 /* UserModel.swift in Sources */,
 				40611DC028D01E12006849F1 /* StudentModel.swift in Sources */,
+				40611DC228D0235E006849F1 /* StudentDB.swift in Sources */,
 				40611DAB28D01192006849F1 /* Activities.swift in Sources */,
 				40611DAD28D01198006849F1 /* Profile.swift in Sources */,
-				40611DA728D0114E006849F1 /* Home.swift in Sources */,
+				40611DA728D0114E006849F1 /* Test.swift in Sources */,
 				40611DBE28D017E3006849F1 /* UserDB.swift in Sources */,
 				40611DA928D0118C006849F1 /* Societies.swift in Sources */,
+				40611DC428D02763006849F1 /* Home.swift in Sources */,
+				40611DC628D04E38006849F1 /* testItem.swift in Sources */,
 				40611DA428D0103E006849F1 /* TabUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,7 +13,7 @@ class UserDB {
     private var db: Connection!
     
     //table instance
-    private var cards : Table!
+    private var users : Table!
     //columns
     private var id: Expression<String>!
     private var role: Expression<String>!
@@ -26,14 +26,14 @@ class UserDB {
             //creating database connection
             db = try Connection("\(path)/my_users.sqlite3")
             
-            cards = Table("cards")
+            users = Table("users")
             
             id = Expression<String>("id")
             role = Expression<String>("role")
 
             
             if(!UserDefaults.standard.bool(forKey: "is_users_db_created")){
-                try db.run(cards.create { t in
+                try db.run(users.create { t in
                     
                     t.column(id, primaryKey: true)
                     t.column(role)
@@ -51,7 +51,7 @@ class UserDB {
         //cards = cards.order(usage.desc)
         
         do{
-             for card in try db.prepare(cards){
+             for card in try db.prepare(users){
                 
                 var UserModel : UserModel = UserModel()
                 
@@ -68,9 +68,9 @@ class UserDB {
     }
     
     
-    public func addCard(card : UserModel){
+    public func add(item : UserModel){
         do{
-            try db.run(cards.insert(id <- card.id, role <- card.role))
+            try db.run(users.insert(id <- item.id, role <- item.role))
         }catch{
             print(error.localizedDescription)
         }
@@ -83,27 +83,19 @@ class UserDB {
 //        }
 //    }
     
-    public func updateCardPicked(card: UserModel){
+    public func update(item: UserModel){
         do{
-            let theCard : Table = cards.filter(id == card.id)
-            try db.run(theCard.update(role <- card.role))
+            let theCard : Table = users.filter(id == item.id)
+            try db.run(theCard.update(role <- item.role))
         }catch{
             print(error.localizedDescription)
         }
     }
     
-    public func updateCardFavorite(card: UserModel){
-        do{
-            let theCard : Table = cards.filter(id == card.id)
-            try db.run(theCard.update(role <- card.role))
-        }catch{
-            print(error.localizedDescription)
-        }
-    }
     
-    public func deleteCard(idValue: String){
+    public func delete(idValue: String){
         do{
-            let card: Table = cards.filter(id == idValue)
+            let card: Table = users.filter(id == idValue)
             try db.run(card.delete())
 
         }catch{

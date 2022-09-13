@@ -11,7 +11,7 @@ import SwiftUI
 struct InformationManagementApp: App {
     var body: some Scene {
         WindowGroup {
-            Home()
+            Test()
         }
     }
 }
