@@ -80,6 +80,30 @@ class SocietyDB {
         return TheUsers
     }
     
+    public func getForUser(user: String) -> [SocietyModel]{
+        var TheUsers : [SocietyModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(items.filter(user == admin)){
+                
+                var SocietyModel : SocietyModel = SocietyModel()
+                
+                SocietyModel.id = card[id]
+                SocietyModel.admin = card[admin]
+                SocietyModel.name = card[name]
+                SocietyModel.description = card[description]
+                SocietyModel.approved = card[approved]
+                
+                TheUsers.append(SocietyModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers
+    }
+    
     
     public func add(item : SocietyModel){
         do{

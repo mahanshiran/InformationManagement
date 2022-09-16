@@ -84,6 +84,31 @@ class UserDB {
         return TheUsers
     }
     
+    public func getUserWithUsername(userName: String) -> UserModel?{
+        var TheUsers : [UserModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(users.filter(username == userName)){
+                
+                var UserModel : UserModel = UserModel()
+                
+                UserModel.id = card[id]
+                UserModel.role = card[role]
+                UserModel.name = card[name]
+                UserModel.username = card[username]
+                UserModel.password = card[password]
+                UserModel.member_of = card[member_of]
+                
+                TheUsers.append(UserModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers.isEmpty ? nil : TheUsers.first
+    }
+    
     
     public func add(item : UserModel){
         do{

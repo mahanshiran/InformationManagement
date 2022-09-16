@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct InformationManagementApp: App {
     var body: some Scene {
+        
         WindowGroup {
-            Test()
+            Login()
         }
     }
 }
