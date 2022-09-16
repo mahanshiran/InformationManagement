@@ -9,39 +9,48 @@ import SwiftUI
 
 struct TabUIView: View {
     
+    let user: UserModel
+    @State private var tab = Tab.home
+    
     var body: some View {
         
-        TabView {
+        TabView (selection: $tab) {
 
-            Home()
+            Home(tab: $tab,user: user)
                 .tabItem { Label("Home", systemImage: "house") }
+                .tag(Tab.home)
 
-            Societies()
-                .tabItem { Label("Community", systemImage: "person.3") }
+            Societies(user: user)
+                .tabItem { Label("Societies", systemImage: "person.3") }
+                .tag(Tab.societies)
 
-            Activities()
-                .tabItem { Label("Profile", systemImage: "person") }
+            Activities(user: user)
+                .tabItem { Label("Activities", systemImage: "square.stack.fill") }
+                .tag(Tab.activities)
             
-            Profile()
+            Profile(user: user)
                 .tabItem { Label("Profile", systemImage: "person") }
-//
+                .tag(Tab.profile)
+            
+            //TODO: 
+            Test()
+                .tabItem { Label("Test", systemImage: "highlighter") }
+                .tag(Tab.test)
+            
         }
-            .accentColor(.black)
-            
-            
         
-    }
-    
-    
-}
-
-
-struct TabUIView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
-        TabUIView()
         
     }
     
 }
+
+//
+//struct TabUIView_Previews: PreviewProvider {
+//    
+//    static var previews: some View {
+//        
+//        TabUIView()
+//        
+//    }
+//    
+//}
