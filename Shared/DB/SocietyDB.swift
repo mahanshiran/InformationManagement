@@ -20,6 +20,8 @@ class SocietyDB {
     private var name: Expression<String>!
     private var description: Expression<String>!
     private var approved: Expression<Bool>!
+    private var adminMessage: Expression<String>!
+    
     
 
     //constructor
@@ -36,7 +38,8 @@ class SocietyDB {
             name = Expression<String>("name")
             description = Expression<String>("description")
             approved = Expression<Bool>("approved")
-
+            adminMessage = Expression<String>("adminMessage")
+            
 
             
             if(!UserDefaults.standard.bool(forKey: "is_society_db_created")){
@@ -47,6 +50,7 @@ class SocietyDB {
                     t.column(name)
                     t.column(description)
                     t.column(approved)
+                    t.column(adminMessage)
 
                 })
                 UserDefaults.standard.setValue(true, forKey: "is_society_db_created")
@@ -70,6 +74,8 @@ class SocietyDB {
                 SocietyModel.name = card[name]
                 SocietyModel.description = card[description]
                 SocietyModel.approved = card[approved]
+                SocietyModel.adminMessage = card[adminMessage]
+                 
                 
                 TheUsers.append(SocietyModel)
                 
@@ -80,7 +86,7 @@ class SocietyDB {
         return TheUsers
     }
     
-    public func getForUser(user: String) -> [SocietyModel]{
+    public func getForAdmin(user: String) -> [SocietyModel]{
         var TheUsers : [SocietyModel] = []
         //cards = cards.order(usage.desc)
         
@@ -94,6 +100,7 @@ class SocietyDB {
                 SocietyModel.name = card[name]
                 SocietyModel.description = card[description]
                 SocietyModel.approved = card[approved]
+                SocietyModel.adminMessage = card[adminMessage]
                 
                 TheUsers.append(SocietyModel)
                 
@@ -107,7 +114,7 @@ class SocietyDB {
     
     public func add(item : SocietyModel){
         do{
-            try db.run(items.insert(id <- item.id, admin <- item.admin, name <- item.name, description <- item.description, approved <- item.approved))
+            try db.run(items.insert(id <- item.id, admin <- item.admin, name <- item.name, description <- item.description, approved <- item.approved, adminMessage <- item.adminMessage))
         }catch{
             print(error.localizedDescription)
         }
@@ -123,7 +130,16 @@ class SocietyDB {
     public func update(item: SocietyModel){
         do{
             let theCard : Table = items.filter(id == item.id)
-            try db.run(theCard.update(admin <- item.admin, name <- item.name, description <- item.description, approved <- item.approved))
+            try db.run(theCard.update(id <- item.id, admin <- item.admin, name <- item.name, description <- item.description, approved <- item.approved, adminMessage <- item.adminMessage))
+        }catch{
+            print(error.localizedDescription)
+        }
+    }
+    
+    public func approve(item: SocietyModel){
+        do{
+            let theCard : Table = items.filter(id == item.id)
+            try db.run(theCard.update(id <- item.id,admin <- item.admin, name <- item.name, description <- item.description, approved <- true, adminMessage <- ""))
         }catch{
             print(error.localizedDescription)
         }

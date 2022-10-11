@@ -8,5 +8,6 @@ target 'InformationManagement (iOS)' do
   # Pods for InformationManagement (iOS)
 
   pod 'SQLite.swift', '~> 0.13.0'
+  pod 'PKHUD'
 
 end

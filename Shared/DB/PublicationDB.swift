@@ -87,6 +87,60 @@ class PublicationDB {
     }
     
     
+    public func getAllForActivity(activity: String) -> [PublicationModel]{
+        var TheUsers : [PublicationModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(items.filter(activity == aid)){
+                
+                var PublicationModel : PublicationModel = PublicationModel()
+                
+                PublicationModel.id = card[id]
+                PublicationModel.aid = card[aid]
+                PublicationModel.uid = card[uid]
+                PublicationModel.content = card[content]
+                PublicationModel.modifiable = card[modifiable]
+                PublicationModel.date = card[date]
+                 
+                
+                TheUsers.append(PublicationModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers
+    }
+    
+    
+    
+    public func getAllForUser(userId: String) -> [PublicationModel]{
+        var TheUsers : [PublicationModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(items.filter(userId == uid)){
+                
+                var PublicationModel : PublicationModel = PublicationModel()
+                
+                PublicationModel.id = card[id]
+                PublicationModel.aid = card[aid]
+                PublicationModel.uid = card[uid]
+                PublicationModel.content = card[content]
+                PublicationModel.modifiable = card[modifiable]
+                PublicationModel.date = card[date]
+                 
+                
+                TheUsers.append(PublicationModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers
+    }
+    
     public func add(item : PublicationModel){
         do{
             try db.run(items.insert(id <- item.id, aid <- item.aid, uid <- item.uid, content <- item.content, modifiable <- item.modifiable,date <- item.date))
@@ -105,7 +159,7 @@ class PublicationDB {
     public func update(item: PublicationModel){
         do{
             let theCard : Table = items.filter(id == item.id)
-            try db.run(theCard.update(aid <- item.aid, uid <- item.uid, content <- item.content, modifiable <- item.modifiable,date <- item.date))
+            try db.run(theCard.update(id <- item.id, aid <- item.aid, uid <- item.uid, content <- item.content, modifiable <- item.modifiable,date <- item.date))
         }catch{
             print(error.localizedDescription)
         }

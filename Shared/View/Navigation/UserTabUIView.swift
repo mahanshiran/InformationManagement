@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct TabUIView: View {
+struct UserTabUIView: View {
     
     let user: UserModel
+    @Binding var isLoggedIn : Bool
     @State private var tab = Tab.home
     
     var body: some View {
@@ -28,17 +29,17 @@ struct TabUIView: View {
                 .tabItem { Label("Activities", systemImage: "square.stack.fill") }
                 .tag(Tab.activities)
             
-            Profile(user: user)
+            Profile(user: user, isLoggedIn: $isLoggedIn)
                 .tabItem { Label("Profile", systemImage: "person") }
                 .tag(Tab.profile)
             
-            //TODO: 
-            Test()
-                .tabItem { Label("Test", systemImage: "highlighter") }
-                .tag(Tab.test)
+//            
+//            //TODO:
+//            Test()
+//                .tabItem { Label("Test", systemImage: "highlighter") }
+//                .tag(Tab.test)
             
         }
-        
         
     }
     

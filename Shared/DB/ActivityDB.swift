@@ -21,7 +21,7 @@ class ActivityDB {
     //columns
     private var id: Expression<String>!
     private var sid: Expression<String>!
-    private var title: Expression<String>!
+    private var creator: Expression<String>!
     private var name: Expression<String>!
     private var description: Expression<String>!
     private var status: Expression<String>!
@@ -40,7 +40,7 @@ class ActivityDB {
             
             id = Expression<String>("id")
             sid = Expression<String>("sid")
-            title = Expression<String>("title")
+            creator = Expression<String>("creator")
             name = Expression<String>("name")
             description = Expression<String>("description")
             status = Expression<String>("status")
@@ -53,7 +53,7 @@ class ActivityDB {
                     
                     t.column(id, primaryKey: true)
                     t.column(sid)
-                    t.column(title)
+                    t.column(creator)
                     t.column(name)
                     t.column(description)
                     t.column(status)
@@ -78,7 +78,116 @@ class ActivityDB {
                 
                 ActivityModel.id = card[id]
                 ActivityModel.sid = card[sid]
-                ActivityModel.title = card[title]
+                ActivityModel.creator = card[creator]
+                ActivityModel.name = card[name]
+                ActivityModel.description = card[description]
+                ActivityModel.status = card[status]
+                ActivityModel.date = card[date]
+                 
+                
+                TheUsers.append(ActivityModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers
+    }
+    
+    public func getAll(sDate: Date, eDate: Date) -> [ActivityModel]{
+        var TheUsers : [ActivityModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(items.filter(date >= sDate && date <= eDate)){
+                
+                var ActivityModel : ActivityModel = ActivityModel()
+                
+                ActivityModel.id = card[id]
+                ActivityModel.sid = card[sid]
+                ActivityModel.creator = card[creator]
+                ActivityModel.name = card[name]
+                ActivityModel.description = card[description]
+                ActivityModel.status = card[status]
+                ActivityModel.date = card[date]
+                 
+                
+                TheUsers.append(ActivityModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers
+    }
+    
+    
+    public func getTotalInDay(day: Int) -> (Int, Date){
+        var TheUsers : [ActivityModel] = []
+        items = items.order(date.desc)
+        
+        do{
+            for card in try db.prepare(items){
+                
+                var ActivityModel : ActivityModel = ActivityModel()
+                
+                ActivityModel.id = card[id]
+                ActivityModel.date = card[date]
+                 
+                TheUsers.append(ActivityModel)
+                
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return (TheUsers.filter { a in
+            a.date.get(.day, .month, .year).day == day
+        }.count, (TheUsers.filter { a in
+            a.date.get(.day, .month, .year).day == day
+        }.first?.date ?? Date()))
+    }
+    
+    public func getById(aid: String) -> [ActivityModel]{
+        var TheUsers : [ActivityModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(items.filter(aid == id)){
+                
+                var ActivityModel : ActivityModel = ActivityModel()
+                
+                ActivityModel.id = card[id]
+                ActivityModel.sid = card[sid]
+                ActivityModel.creator = card[creator]
+                ActivityModel.name = card[name]
+                ActivityModel.description = card[description]
+                ActivityModel.status = card[status]
+                ActivityModel.date = card[date]
+                 
+                
+                TheUsers.append(ActivityModel)
+                
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        return TheUsers
+    }
+    
+    
+    public func getForSociety(societyId: String) -> [ActivityModel]{
+        var TheUsers : [ActivityModel] = []
+        //cards = cards.order(usage.desc)
+        
+        do{
+            for card in try db.prepare(items.filter(societyId == sid)){
+                
+                var ActivityModel : ActivityModel = ActivityModel()
+                
+                ActivityModel.id = card[id]
+                ActivityModel.sid = card[sid]
+                ActivityModel.creator = card[creator]
                 ActivityModel.name = card[name]
                 ActivityModel.description = card[description]
                 ActivityModel.status = card[status]
@@ -97,23 +206,24 @@ class ActivityDB {
     
     public func add(item : ActivityModel){
         do{
-            try db.run(items.insert(id <- item.id, sid <- item.sid, title <- item.title, name <- item.name, description <- item.description, status <- item.status,date <- item.date))
+            try db.run(items.insert(id <- item.id, sid <- item.sid, creator <- item.creator, name <- item.name, description <- item.description, status <- item.status,date <- item.date))
         }catch{
             print(error.localizedDescription)
         }
     }
     
-//    public func batchInsert(filetitle: String){
-//        let theCards = Bundle.main.decode([ActivityModel].self, from: filetitle + ".json").shuffled()
+//    public func batchInsert(filecreator: String){
+//        let theCards = Bundle.main.decode([ActivityModel].self, from: filecreator + ".json").shuffled()
 //        for card in theCards{
 //            addCard(card: card)
 //        }
 //    }
+
     
     public func update(item: ActivityModel){
         do{
             let theCard : Table = items.filter(id == item.id)
-            try db.run(theCard.update(sid <- item.sid, title <- item.title, name <- item.name, description <- item.description,status <- item.status,date <- item.date))
+            try db.run(theCard.update(id <- item.id,sid <- item.sid, creator <- item.creator, name <- item.name, description <- item.description,status <- item.status,date <- item.date))
         }catch{
             print(error.localizedDescription)
         }

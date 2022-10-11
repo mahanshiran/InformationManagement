@@ -18,9 +18,8 @@ class UserDB {
     private var id: Expression<String>!
     private var role: Expression<String>!
     private var name: Expression<String>!
-    private var username: Expression<String>!
     private var password: Expression<String>!
-    private var member_of: Expression<String>!
+    private var status: Expression<String>!
     
 
     //constructor
@@ -36,9 +35,8 @@ class UserDB {
             id = Expression<String>("id")
             role = Expression<String>("role")
             name = Expression<String>("name")
-            username = Expression<String>("username")
             password = Expression<String>("password")
-            member_of = Expression<String>("member_of")
+            status = Expression<String>("status")
 
             
             if(!UserDefaults.standard.bool(forKey: "is_users_db_created")){
@@ -47,9 +45,8 @@ class UserDB {
                     t.column(id, primaryKey: true)
                     t.column(role)
                     t.column(name)
-                    t.column(username)
                     t.column(password)
-                    t.column(member_of)
+                    t.column(status)
 
                 })
                 UserDefaults.standard.setValue(true, forKey: "is_users_db_created")
@@ -71,9 +68,8 @@ class UserDB {
                 UserModel.id = card[id]
                 UserModel.role = card[role]
                  UserModel.name = card[name]
-                 UserModel.username = card[username]
                  UserModel.password = card[password]
-                 UserModel.member_of = card[member_of]
+                 UserModel.status = card[status]
                 
                 TheUsers.append(UserModel)
                 
@@ -89,16 +85,15 @@ class UserDB {
         //cards = cards.order(usage.desc)
         
         do{
-            for card in try db.prepare(users.filter(username == userName)){
+            for card in try db.prepare(users.filter(id == userName)){
                 
                 var UserModel : UserModel = UserModel()
                 
                 UserModel.id = card[id]
                 UserModel.role = card[role]
                 UserModel.name = card[name]
-                UserModel.username = card[username]
                 UserModel.password = card[password]
-                UserModel.member_of = card[member_of]
+                UserModel.status = card[status]
                 
                 TheUsers.append(UserModel)
                 
@@ -112,23 +107,23 @@ class UserDB {
     
     public func add(item : UserModel){
         do{
-            try db.run(users.insert(id <- item.id, role <- item.role, name <- item.name, username <- item.username, password <- item.password, member_of <- item.member_of))
+            try db.run(users.insert(id <- item.id, role <- item.role, name <- item.name, password <- item.password, status <- item.status))
         }catch{
             print(error.localizedDescription)
         }
     }
     
-//    public func batchInsert(fileName: String){
-//        let theCards = Bundle.main.decode([UserModel].self, from: fileName + ".json").shuffled()
-//        for card in theCards{
-//            addCard(card: card)
-//        }
-//    }
+    public func batchInsert(fileName: String){
+        let theCards = Bundle.main.decode([UserModel].self, from: fileName + ".json")
+        for card in theCards{
+            add(item: card)
+        }
+    }
     
     public func update(item: UserModel){
         do{
             let theCard : Table = users.filter(id == item.id)
-            try db.run(theCard.update(role <- item.role, name <- item.name, username <- item.username, password <- item.password, member_of <- item.member_of))
+            try db.run(theCard.update(id <- item.id, role <- item.role, name <- item.name, password <- item.password, status <- item.status))
         }catch{
             print(error.localizedDescription)
         }

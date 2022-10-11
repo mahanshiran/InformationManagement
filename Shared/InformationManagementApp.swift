@@ -10,9 +10,8 @@ import SwiftUI
 @main
 struct InformationManagementApp: App {
     var body: some Scene {
-        
         WindowGroup {
-            Login()
+            Login().preferredColorScheme(.dark)
         }
     }
 }

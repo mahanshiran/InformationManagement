@@ -12,15 +12,27 @@ struct Activities: View {
     let activityDB = ActivityDB()
     @State var activities : [ActivityModel] = []
     @State var showsSheet: Bool = false
+    @State var showFutureActivities: Bool = true
     var body: some View {
         NavigationView{
             VStack{
                 Divider()
                 
+                HStack{
+                    Text("future activities")
+                    Spacer()
+                    Toggle("", isOn: $showFutureActivities)
+                }
+                .onChange(of: showFutureActivities) { _ in
+                    updateData()
+                }
+                .padding(.horizontal)
+                
+                
                 if(!activities.isEmpty){
                     List(activities, id:\.id){
                         item in
-                        ActivityRow(item: item)
+                        ActivityRow(user: user, activity: item)
                     }
                 }
                 else{
@@ -32,31 +44,44 @@ struct Activities: View {
                 Spacer()
                 
             }
-            .toolbar(content: {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showsSheet.toggle()
-                        } label: { Image(systemName: "plus.circle.fill") }
-                            .opacity(user.role == "admin" ? 1 : 0)
-                            .disabled(user.role == "admin" ? false : true)
-                    }
-                
-            })
+//            .toolbar(content: {
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        Button {
+//                            showsSheet.toggle()
+//                        } label: { Image(systemName: "plus.circle.fill") }
+//                            .opacity((user.role == "community_admin") ? 1 : 0) //MARK: if the user role is community_admin the should show the button
+//                            .disabled((user.role == "community_admin") ? false : true)
+//                    }
+//                
+//            })
             .onAppear(){
                 //MARK: test it later
-                activities = activityDB.getAll().filter({ am in
-                    user.member_of.contains(am.sid)
-                })
+                updateData()
+                
             }
             .sheet(isPresented: $showsSheet) {
-                activities = activityDB.getAll()
+                updateData()
             } content: {
                
             }
             .navigationTitle("Activities")
 
         }
+        .navigationViewStyle(.stack)
 
+    }
+    
+    func updateData(){
+        if(showFutureActivities){
+            activities = activityDB.getAll().filter({ activitty in
+                activitty.date >= Date()
+            })
+        }else {
+            activities = activityDB.getAll().filter({ activitty in
+                activitty.date < Date()
+            })
+        }
+        
     }
 }
 

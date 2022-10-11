@@ -10,17 +10,16 @@ import SwiftUI
 struct Test: View {
     let userDB = UserDB()
     let societyDB = SocietyDB()
-    let recordDB = RecordDB()
     let activityDB = ActivityDB()
     let publicationDB = PublicationDB()
-    let participantDB = ParticipantDB()
+    let societyMemberDB = SocietyMemberDB()
     
     @State var users : [UserModel] = []
     @State var societies : [SocietyModel] = []
-    @State var records : [RecordModel] = []
     @State var activities : [ActivityModel] = []
     @State var publications : [PublicationModel] = []
-    @State var participants : [ParticipantModel] = []
+
+    @State var societyMembers : [SocietyMember] = []
     
     @State var date : Date = Date()
     @State var fields : [String] = Range(0...10).map { _ in
@@ -36,20 +35,18 @@ struct Test: View {
 //
                 usersView()
                 societiesView()
-                recordsView()
                 activitiesView()
                 publicationsView()
-                participantsView()
+                societyMembersView()
                 
                 
             }
             .onAppear{
                 users = userDB.getAll()
                 societies = societyDB.getAll()
-                records = recordDB.getAll()
                 activities = activityDB.getAll()
                 publications = publicationDB.getAll()
-                participants = participantDB.getAll()
+                societyMembers = societyMemberDB.getAll()
             }
         }
 
@@ -70,7 +67,7 @@ struct Test: View {
                 
                 Button {
                     
-                    userDB.add(item: UserModel(id: UUID().uuidString, role: fields[0], name: fields[1], username: fields[2], password: fields[3], member_of: fields[4]))
+                    userDB.add(item: UserModel(id: fields[2], role: fields[0], name: fields[1], password: fields[3], status: "normal"))
                     users = userDB.getAll()
                     
                 } label: {
@@ -85,9 +82,8 @@ struct Test: View {
                         VStack{
                             Text(user.role)
                             Text(user.name)
-                            Text(user.username)
+                            Text(user.id)
                             Text(user.password)
-                            Text(user.member_of)
                             
                         }
                         
@@ -126,7 +122,7 @@ struct Test: View {
                 
                 Button {
                     
-                    societyDB.add(item: SocietyModel(id: UUID().uuidString, admin: fields[0], name: fields[1], description: fields[2], approved: boolFields[0]))
+                    societyDB.add(item: SocietyModel(id: UUID().uuidString, admin: fields[0], name: fields[1], description: fields[2], approved: boolFields[0], adminMessage: "Pending"))
                     societies = societyDB.getAll()
                     
                 } label: {
@@ -167,69 +163,7 @@ struct Test: View {
             .padding()
         }
     }
-    
-    
-    @ViewBuilder
-    func recordsView() -> some View{
-        NavigationLink("records") {
-            VStack(alignment: .center){
-                
-                TextField("members", text: $fields[0])
-                TextField("activities", text: $fields[1])
-                TextField("publications", text: $fields[2])
-                TextField("members_deleted", text: $fields[3])
-                TextField("activities_deleted", text: $fields[4])
-                TextField("engagement", text: $fields[5])
-                DatePicker("date_created", selection: $date)
-                
-                Button {
-                    
-                    recordDB.add(item: RecordModel(id: UUID().uuidString, members: Int(fields[0]) ?? 0, activities: Int(fields[0]) ?? 0, publications: Int(fields[0]) ?? 0, members_deleted: Int(fields[0]) ?? 0, activities_deleted: Int(fields[0]) ?? 0, engagement: Double(Int(fields[0]) ?? 0), date_created: date))
-                    records = recordDB.getAll()
-                    
-                } label: {
-                    
-                    Text("Add Record")
-                }
-                
-                Spacer()
-                
-                List(records, id:\.id){
-                    item in
-                    HStack{
-                        
-                        VStack(alignment: .leading){
-                            Text("activities: \(item.activities)")
-                            Text("activities: \(item.activities)")
-                            Text("publications: \(item.publications)")
-                            Text("members_deleted: \(item.members_deleted)")
-                            Text("activities_deletedd: \(item.activities_deleted)")
-                            Text("engagement: \(item.engagement)")
-                            Text("date_created: \(item.date_created)")
-                            
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            recordDB.delete(idValue: item.id)
-                            records = recordDB.getAll()
-                        } label: {
-                            Image(systemName: "trash")
-                        }
 
-                    }
-                  
-                    
-                }
-                
-             
-            }
-            .navigationTitle("Records")
-            .textFieldStyle(.roundedBorder)
-            .padding()
-        }
-    }
     
     @ViewBuilder
     func activitiesView() -> some View{
@@ -245,7 +179,7 @@ struct Test: View {
                 
                 Button {
                     
-                    activityDB.add(item: ActivityModel(id: UUID().uuidString, sid: fields[0], title: fields[1], name: fields[2], description: fields[3], status: fields[4], date: date))
+                    activityDB.add(item: ActivityModel(id: UUID().uuidString, sid: fields[0], creator: fields[1], name: fields[2], description: fields[3], status: fields[4], date: date))
                     activities = activityDB.getAll()
                     
                 } label: {
@@ -261,7 +195,7 @@ struct Test: View {
                         
                         VStack(alignment: .leading){
                             Text("sid: \(item.sid)")
-                            Text("title: \(item.title)")
+                            Text("title: \(item.creator)")
                             Text("name: \(item.name)")
                             Text("description: \(item.description)")
                             Text("status: \(item.status)")
@@ -351,42 +285,27 @@ struct Test: View {
         }
     }
     
+    
+    
     @ViewBuilder
-    func participantsView() -> some View{
-        NavigationLink("participants") {
+    func societyMembersView() -> some View{
+        NavigationLink("society Members") {
             VStack(alignment: .center){
                 
-                TextField("aid (Foreign))", text: $fields[0])
                 
-                Button {
-                    participantDB.add(item: ParticipantModel(id: UUID().uuidString, aid: fields[0]))
-                    participants = participantDB.getAll()
-                    
-                } label: {
-                    
-                    Text("Add Pariticipant")
-                }
-                
-                Spacer()
-                
-                List(participants, id:\.id){
+                List(societyMembers, id:\.id){
                     item in
                     HStack{
                         
                         VStack(alignment: .leading){
                             
-                            Text("aid: \(item.aid)")
+                            Text("uid: \(item.uid)")
+                            Text("sid: \(item.sid)")
                             
                         }
                         
                         Spacer()
                         
-                        Button {
-                            participantDB.delete(idValue: item.id)
-                            participants = participantDB.getAll()
-                        } label: {
-                            Image(systemName: "trash")
-                        }
 
                     }
                   
@@ -395,11 +314,10 @@ struct Test: View {
                 
              
             }
-            .navigationTitle("participants")
+            .navigationTitle("society Members")
             .textFieldStyle(.roundedBorder)
             .padding()
         }
     }
-    
 }
 

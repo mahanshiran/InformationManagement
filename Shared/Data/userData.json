@@ -1,0 +1,17 @@
+[
+    {
+      "id": "newUser",
+      "role": "ordinary_user",
+      "name": "new",
+      "password": "123456",
+      "status": "normal"
+    },
+    {
+      "id": "newUser1",
+      "role": "ordinary_user",
+      "name": "new1",
+      "password": "123456",
+      "status": "normal"
+    }
+    
+]
